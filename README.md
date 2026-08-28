@@ -46,7 +46,6 @@ Other useful targets:
 ```bash
 make down     # Stop and remove containers and networks
 make clean    # Stop containers and safely remove specific build artifacts
-make fclean   # Full clean: down containers, delete named volumes, and wipe all persistent data
 make re       # Rebuild everything from scratch (fclean followed by make)
 ```
 ## Resources
