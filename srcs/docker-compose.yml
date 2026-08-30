@@ -62,14 +62,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      #dont forget to change the path to ylemkere
-      device: /home/yasser/data/wordpress
+      #matnsach tbdel hado
+      device: /home/ylemkere/data/wordpress
       o: bind
 
   mariadb_data:
     driver: local
     driver_opts:
       type: none
-      #dont forget to change the path to ylemkere
-      device: /home/yasser/data/mysql
+      #matnsach tbdel hado
+      device: /home/ylemkere/data/mysql
       o: bind
