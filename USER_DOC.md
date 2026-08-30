@@ -28,9 +28,9 @@ the files are as follows :
 Use this command at the root of the repo :
 ```bash
 mkdir -p srcs/secrets && \
-echo -n "database1234" > srcs/secrets/db_password.txt && \
-echo -n "root1234" > srcs/secrets/db_root_password.txt && \
-echo -n "wordpress1234" > srcs/secrets/wp_admin_password.txt
+echo -n "db_password" > srcs/secrets/db_password.txt && \
+echo -n "db_root_password" > srcs/secrets/db_root_password.txt && \
+echo -n "wp_admin_password" > srcs/secrets/wp_admin_password.txt
 ```
 ```
 
