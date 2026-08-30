@@ -7,7 +7,7 @@ services:
       - "443:443"
     volumes:
       - wordpress_data:/var/www/html
-    restart: always
+    restart: unless-stopped
     networks:
       - inception-network
     depends_on:
@@ -19,7 +19,7 @@ services:
     build: ./requirements/mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
-    restart: always
+    restart: unless-stopped
     networks:
       - inception-network
     env_file:
@@ -36,7 +36,7 @@ services:
     build: ./requirements/wordpress
     volumes:
       - wordpress_data:/var/www/html
-    restart: always
+    restart: unless-stopped
     networks:
       - inception-network
     env_file:
@@ -63,7 +63,7 @@ volumes:
     driver_opts:
       type: none
       #matnsach tbdel hado
-      device: /home/ylemkere/data/wordpress
+      device: /home/yasser/data/wordpress
       o: bind
 
   mariadb_data:
@@ -71,5 +71,5 @@ volumes:
     driver_opts:
       type: none
       #matnsach tbdel hado
-      device: /home/ylemkere/data/mysql
+      device: /home/yasser/data/mysql
       o: bind

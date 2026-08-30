@@ -7,6 +7,12 @@ down:
 clean:
 	docker compose --env-file ./srcs/.env -f ./srcs/docker-compose.yml down -v
 
+stop:
+	@docker compose -f ./srcs/docker-compose.yml stop
+
+start:
+	@docker compose -f ./srcs/docker-compose.yml start
+
 fclean: clean
 	docker compose --env-file ./srcs/.env -f ./srcs/docker-compose.yml down --rmi all
 	sudo rm -rf /home/ylemkere/data/wordpress/*
@@ -14,4 +20,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all down clean fclean re
+.PHONY: all down stop start clean fclean re
