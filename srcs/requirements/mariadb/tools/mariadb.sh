@@ -15,14 +15,7 @@ if [ ! -f "/var/lib/mysql/.initialized" ]; then
         mariadb-install-db --user=mysql --datadir=/var/lib/mysql > /dev/null
     fi
 
-    mysqld --user=mysql --skip-networking --socket=/run/mysqld/mysqld.sock &
-    tmp_pid="$!"
-
-    until mysqladmin --socket=/run/mysqld/mysqld.sock ping --silent 2>/dev/null; do
-        sleep 1
-    done
-
-    mysql --socket=/run/mysqld/mysqld.sock -u root <<EOF
+    cat > /tmp/init.sql <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
 
 CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\`;
@@ -32,15 +25,14 @@ CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
 GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';
 
 FLUSH PRIVILEGES;
+
+SELECT 'initialized' INTO OUTFILE '/var/lib/mysql/.initialized';
 EOF
 
-    mysqladmin --socket=/run/mysqld/mysqld.sock -u root -p"$DB_ROOT_PASSWORD" shutdown
-    wait "$tmp_pid"
+    chown mysql:mysql /tmp/init.sql
+    chmod 600 /tmp/init.sql
 
-    touch /var/lib/mysql/.initialized
-
-    echo "MariaDB initialized"
-
+    exec mysqld --user=mysql --console --init-file=/tmp/init.sql
 fi
 
 exec mysqld --user=mysql --console
