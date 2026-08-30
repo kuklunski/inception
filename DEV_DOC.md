@@ -99,6 +99,21 @@ MariaDB listens on port `3306` inside the Docker network.
 
 Sensitive credentials are stored as Docker secrets.
 
+You will have to create 3 files for secrets since it is forbidden to push any credentials, API keys,
+or passwords into git.
+the files are as follows :
+- db_password.txt
+- db_root_password.txt
+- wp_admin_password.txt
+
+Use this command :
+```bash
+mkdir -p srcs/secrets && \
+echo -n "database1234" > srcs/secrets/db_password.txt && \
+echo -n "root1234" > srcs/secrets/db_root_password.txt && \
+echo -n "wordpress1234" > srcs/secrets/wp_admin_password.txt
+```
+
 The secrets are located in:
 
 ```text
@@ -117,7 +132,7 @@ Secrets should never be hard-coded into Dockerfiles, source code or committed to
 From the repository root:
 
 ```bash
-cd ~/inception
+cd /inception
 ```
 
 Build the project using the Makefile:

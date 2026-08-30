@@ -15,7 +15,23 @@ The services communicate through a Docker network. NGINX receives HTTPS requests
 Go to the project directory:
 
 ```bash
-cd ~/inception
+cd /inception
+```
+
+You will have to create 3 files for secrets since it is forbidden to push any credentials, API keys,
+or passwords into git.
+the files are as follows :
+- /srcs/secrets/db_password.txt
+- /srcs/secrets/db_root_password.txt
+- /srcs/secrets/wp_admin_password.txt
+
+Use this command at the root of the repo :
+```bash
+mkdir -p srcs/secrets && \
+echo -n "database1234" > srcs/secrets/db_password.txt && \
+echo -n "root1234" > srcs/secrets/db_root_password.txt && \
+echo -n "wordpress1234" > srcs/secrets/wp_admin_password.txt
+```
 ```
 
 Start the project using the Makefile:
@@ -42,7 +58,7 @@ docker compose up -d
 To stop the containers:
 
 ```bash
-cd ~/inception/srcs
+cd /inception/srcs
 docker compose down
 ```
 
