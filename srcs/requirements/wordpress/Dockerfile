@@ -2,6 +2,7 @@ FROM debian:bookworm
 
 RUN apt update && apt install -y \
     curl \
+    mariadb-client \
     php-fpm \
     php-mysql \
     php-curl \
